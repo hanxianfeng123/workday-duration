@@ -1,1 +1,3 @@
+pytz
 chinese_calendar
+parameterized==0.7.4

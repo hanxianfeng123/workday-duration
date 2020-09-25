@@ -5,17 +5,28 @@
  @author: hanxianfeng
  @software: PyCharm  on 2020/9/24
 """
-import datetime as datetime
+import datetime
+
+import pytz
 from chinese_calendar import get_workdays, get_dates, is_workday
+
+
+def _tz_convert_to_chinese(dt: datetime):
+    chinese_zone = pytz.timezone('Asia/Shanghai')
+    dt = chinese_zone.localize(dt) if not dt.tzinfo else dt.astimezone(chinese_zone)
+    return dt
 
 
 def duration_days(start_datetime: datetime, end_datetime: datetime):
     """
     计算两个datetime间的实际工作日、相对差（不排除周六日、节假日）
+    Note: 目前只支持中国时区，因为按中国节假日计算
     :param start_datetime: 年月日 时分秒
     :param end_datetime:
     :return:
     """
+    start_datetime = _tz_convert_to_chinese(start_datetime)
+    end_datetime = _tz_convert_to_chinese(end_datetime)
 
     work_day_num = len(get_workdays(start_datetime, end_datetime))
     total_day_num = len(get_dates(start_datetime, end_datetime))
@@ -43,26 +54,16 @@ def duration_days(start_datetime: datetime, end_datetime: datetime):
     wd = round(total_day_num - free_day_num - cut_diff, 4)
     return wd, actual_day_len
 
-#
-# def duration_days2(start_date_time, end_date_time, from_tz='Asia/Shanghai'):
-#     """
-#     计算两个datetime间的工作日、以及相对差（不排除周六日、节假日）
-#     :param start_date_time: 年月日 时分秒
-#     :param end_date_time:
-#     :param from_tz: 日期的时区
-#     :return:
-#     """
-#     to_tz = 'Asia/Shanghai'
-#     def tz_datetime(dt, from_tz, to_tz):
-#         t = pb.to_datetime(dt)
-#         t = t.tz_localize(from_tz) if t.tz is None else t
-#         t = t.tz_convert(to_tz)
-#         return t
-#
-#     start_date_time = tz_datetime(start_date_time, from_tz, to_tz)
-#     end_date_time = tz_datetime(end_date_time, from_tz, to_tz)
-#     import datetime
-#     start_dt = datetime.datetime.fromtimestamp(start_date_time.timestamp(), start_date_time.tzinfo)
-#     end_dt = datetime.datetime.fromtimestamp(end_date_time.timestamp(), end_date_time.tzinfo)
-#
-#     return duration_days(start_dt, end_dt)
+
+def duration_days2(start_date_time: str, end_date_time: str, dt_fmt='%Y-%m-%d %H:%M:%s'):
+    """
+    计算两个datetime间的工作日、以及相对差（不排除周六日、节假日）
+    :param start_date_time: 年月日 时分秒
+    :param end_date_time:
+    :return:
+    """
+
+    start_dt = datetime.datetime.strptime(start_date_time, dt_fmt)
+    end_dt = datetime.datetime.strptime(end_date_time, dt_fmt)
+
+    return duration_days(start_dt, end_dt)
