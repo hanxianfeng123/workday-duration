@@ -48,6 +48,7 @@ class BasicTests(unittest.TestCase):
             ('2020-08-24 04:00:00 +0000', '2020-08-30 04:00:00 +0000', '%Y-%m-%d %H:%M:%S %z', 4.5, 6),
             # 带时区且转为北京时间后属于节假日
             ('2020-09-30 16:00:00 +0000', '2020-10-02 04:00:00 +0000', '%Y-%m-%d %H:%M:%S %z', 0, 1.5),
+            ('2020-09-30 16:00:00.000000 +0000', '2020-10-02 04:00:00.000000 +0000', '%Y-%m-%d %H:%M:%S.%f %z', 0, 1.5),
 
         ])
     def test_cal_duration_days2(self, start_datetime, end_datetime, dt_fmt, expect_wd, expect_total_day):
