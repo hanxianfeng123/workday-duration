@@ -8,7 +8,7 @@
 import setuptools
 from setuptools import setup
 setup(name='workday-duration',
-      version='1.0.0',
+      version='1.0.1',
       description='calculator duration days from one time to another',
       url='https://github.com/hanxianfeng123/workday-duration',
       author='hanxianfeng123',
