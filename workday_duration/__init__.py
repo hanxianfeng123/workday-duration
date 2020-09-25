@@ -5,5 +5,8 @@
  @author: hanxianfeng
  @software: PyCharm  on 2020/9/24
 """
+__version__ = "1.0.1"
+
+
 def start():
     print("import successful")
