@@ -10,7 +10,7 @@ from datetime import datetime
 
 from parameterized import parameterized
 
-from workday_duration.utils import duration_days, duration_days2
+from workday_duration.utils import duration_days, duration_days2, union, intersection
 
 
 class BasicTests(unittest.TestCase):
@@ -56,3 +56,13 @@ class BasicTests(unittest.TestCase):
                                                dt_fmt=dt_fmt)  # 区间全部在休息日)
         assert expect_wd == work_days
         assert expect_total_day == total_days
+
+    def test_union(self):
+        l1 = [(1, 7), (4, 8), (10, 15), (20, 30), (50, 60)]
+        l2 = [(3, 6), (8, 11), (15, 20)]
+        assert [(1, 30), (50, 60)] == list(union(l1, l2))
+
+    def test_intersection(self):
+        l1 = [(1, 7), (4, 8), (10, 15), (20, 30), (50, 60)]
+        l2 = [(3, 6), (8, 11), (15, 20)]
+        print(list(intersection(l1, l2)))  # [(3, 6), (10, 11)]
