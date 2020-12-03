@@ -6,7 +6,7 @@
 [![README](https://img.shields.io/badge/README-English-brightgreen.svg)](https://github.com/LKI/chinese-calendar/blob/master/README.en.md)
 
 两个时间点间实际工作时间（去除周六日、节假日）。
-支持 2004年 至 2020年，包括 2020年 的春节延长。
+支持 2004年 至 2021年，包括 2020年 的春节延长。
 
 ## 安装
 
