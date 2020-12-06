@@ -5,7 +5,7 @@
  @author: hanxianfeng
  @software: PyCharm  on 2020/9/24
 """
-__version__ = "1.0.2"
+__version__ = "1.0.4"
 
 
 def start():
