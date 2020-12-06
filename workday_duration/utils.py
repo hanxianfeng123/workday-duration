@@ -72,7 +72,7 @@ def duration_days2(start_date_time: str, end_date_time: str, dt_fmt='%Y-%m-%d %H
     return duration_days(start_dt, end_dt)
 
 
-def _consolidate(intervals):
+def consolidate(intervals):
     sorted_intervals = sorted(intervals, key=itemgetter(0))
 
     if not sorted_intervals:  # no intervals to merge
@@ -98,7 +98,7 @@ def union(l1: List[datetime.datetime], l2: List[datetime.datetime]):
     :param l2:
     :return:
     """
-    return _consolidate([*l1, *l2])
+    return consolidate([*l1, *l2])
 
 
 def intersection(l1: List[datetime.datetime], l2: List[datetime.datetime]):
@@ -109,4 +109,4 @@ def intersection(l1: List[datetime.datetime], l2: List[datetime.datetime]):
     :return:
     """
     result = ((max(s1, s2), min(e1, e2)) for (s1, e1), (s2, e2) in product(l1, l2) if s1 < e2 and e1 > s2)
-    return _consolidate(result)
+    return consolidate(result)

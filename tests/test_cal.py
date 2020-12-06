@@ -65,4 +65,9 @@ class BasicTests(unittest.TestCase):
     def test_intersection(self):
         l1 = [(1, 7), (4, 8), (10, 15), (20, 30), (50, 60)]
         l2 = [(3, 6), (8, 11), (15, 20)]
-        print(list(intersection(l1, l2)))  # [(3, 6), (10, 11)]
+        assert list(intersection(l1, l2)) == [(3, 6), (10, 11)]
+
+    def test_intersection2(self):
+        l1 = [(datetime(2020, 11, 25, 1, 1, 1), datetime(2020, 11, 25, 10, 1, 1)), ]
+        l2 = [(datetime(2020, 11, 25, 2, 1, 1), datetime(2020, 11, 25, 8, 1, 1)), ]
+        assert list(intersection(l1, l2)) == l2
